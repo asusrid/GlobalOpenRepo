@@ -1,0 +1,19 @@
+{
+  "name": "node",
+  "version": "12.2.0",
+  "description": "node back-end",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asusrid/GlobalOpenRepo.git"
+  },
+  "author": "Alejandro and Pablo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/asusrid/GlobalOpenRepo/issues"
+  },
+  "homepage": "https://github.com/asusrid/GlobalOpenRepo#readme"
+}
