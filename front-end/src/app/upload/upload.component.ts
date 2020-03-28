@@ -23,30 +23,32 @@ export class UploadComponent implements OnInit {
   }
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient, private host: ElementRef<HTMLInputElement>) {
-  	this.uri = 'http://192.168.1.125:4000';
+  	this.uri = 'http://192.168.1.125:3000';
   }
 
   ngOnInit(): void {
   	this.uploadFileForm = this.formBuilder.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required],
+      email: ['admin@admin', Validators.required],
+      password: ['admin', Validators.required],
       file: ['', Validators.required]
     });
   }
 
   get f() { return this.uploadFileForm.controls; }
 
-  public saveVideo() {
+  public saveFile() {
       this.submitted = true;
 
       // stop the process here if form is invalid
       if (this.uploadFileForm.invalid) {
         return;
       }
+
+      if(this.uploadFileForm.get('email').value == 'admin@admin')
       console.log(this.file);
       console.log('SUCCESS!!');
       console.log(this.uploadFileForm.get('course').value);
-      this.http.post(`${this.uri}/videos`, this.toFormData(this.uploadVideoForm.value),
+      this.http.post(`${this.uri}/videos`, this.toFormData(this.uploadFileForm.value),
           {reportProgress: true, observe: 'events'}
       ).pipe(
           this.uploadProgress(progress => (this.progress = progress)),

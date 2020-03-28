@@ -1,44 +1,44 @@
-<p>upload works!</p>
 <section class="jumbotron text-center">
     <div class="container">
-        <h1 class="jumbotron-heading" id="top" i18n>Upload Video</h1>
-        <p class="lead text-muted"><span i18n>Welcome professor</span> {{userInfo.family_name}}, {{userInfo.given_name}}</p>
-        <p class="lead text-muted" i18n>Please, upload your video following the next steps.</p>
-        <form [formGroup]="uploadVideoForm" (ngSubmit)="saveVideo()"><!--<form>-->
+        <h1 class="jumbotron-heading" id="top">Upload File</h1>
+        <p class="lead text-muted">Please, upload your file following the next steps.</p>
+        <form [formGroup]="uploadFileForm" (ngSubmit)="saveFile()">
             <div class="form-group">
-                <h3 for="sel1" i18n>1. Select Course:</h3><br>
-                <select class="form-control" id="sel1" formControlName="course" [ngClass]="{ 'is-invalid': submitted && f.course.errors }">
-                    <option *ngFor="let c of coursesInfo" value="{{c._id}}">{{c.number}}: {{c.name}}</option>
-                </select>
-                <div *ngIf="submitted && f.course.errors" class="text-danger">
-                    <div *ngIf="f.course.errors.required" i18n>Course is required</div>
+                <h3>1. Authenticate:</h3><br>
+                <h4 for="email">User</h4><br>
+                <input id="email" type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                <div *ngIf="submitted && f.email.errors" class="text-danger">
+                    <div *ngIf="f.email.errors.required">Course is required</div>
                 </div>
             </div>
             <div class="form-group">
-                <h3 i18n>2. Select Video:</h3>
+                <h4 for="password">Password</h4><br>
+                <input id="password" type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"  />
+                <div *ngIf="submitted && f.password.errors" class="text-danger">
+                    <div *ngIf="f.password.errors.required">Password is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <h3>2. Select File:</h3>
                 <div class="file-drop-area">
                     <label for="vid" class="file-msg">
-                        <span i18n>Choose file </span>
+                        <span>Choose file </span>
                         <div *ngIf="file; else elseBlock">{{file.name}}</div>
-                        <ng-template #elseBlock><span i18n>or drag and drop file here.</span></ng-template>
+                        <ng-template #elseBlock><span >or drag and drop file here.</span></ng-template>
                     </label>
                     <!--<input formControlName="video" name="video" class="file-input" type="file">  (change)="onSelectFile($event)"-->
                     <input id="vid" name="video" type='file' accept="video/*" formControlName="video" class="file-input form-control custom-file-input"  [ngClass]="{ 'is-invalid': submitted && f.video.errors }" />
 
                     <div *ngIf="submitted && f.video.errors" class="text-danger">
-                        <div *ngIf="f.video.errors.required" i18n>Class video is required</div>
-                        <div *ngIf="f.video.errors.requiredFileType" i18n>Class video must be in mp4 format</div>
+                        <div *ngIf="f.video.errors.required">Class video is required</div>
                     </div>
                 </div>
                 <div class="progress" *ngIf="progress > 0">
                     <div class="progress-bar" [style.width.%]="progress">{{progress}}%</div>
                 </div>
             </div>
-            <!-- ToDo add input speaker language / accent for internationalizing porposes-->
-            <!-- ToDo add input enter keywords to help the transcription service to process it more accurately -->
-            <!-- ToDo set MB video <td *ngIf="uploader.options.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>-->
             <div class="row">
-                <button type="submit" class="btn btn-primary"><img alt="up" src="./assets/upload.svg" width="15" height="15"><span i18n>Upload</span></button>
+                <button type="submit" class="btn btn-primary">Upload</button>
             </div>
         </form>
     </div>
