@@ -23,7 +23,7 @@ export class UploadComponent implements OnInit {
   }
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient, private host: ElementRef<HTMLInputElement>) {
-  	this.uri = 'http://192.168.1.125:3000';
+  	this.uri = 'http://192.168.1.125:3002';
   }
 
   ngOnInit(): void {
