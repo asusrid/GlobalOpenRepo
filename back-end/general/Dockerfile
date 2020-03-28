@@ -1,7 +1,7 @@
 FROM node:12.10.0-alpine
 
 WORKDIR /app
-COPY ./package* .
+ADD ./package* ./
 RUN npm install
 COPY ./src/ ./src
 
