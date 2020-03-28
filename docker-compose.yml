@@ -1,7 +1,6 @@
 version: '3.7'
 
 services:
-
      angular:
           hostname: 192.168.1.125
           build: front-end
@@ -24,4 +23,4 @@ services:
          volumes:
                - "/home/controller/factor-DC/kubeconfig/GlobalOpenRepo/back-end/database/:/data/db"
          ports:
-              Â- "27018:27017"     
+               - "27018:27017"     
