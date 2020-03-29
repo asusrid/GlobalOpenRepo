@@ -1,69 +1,42 @@
 """
-==================
-Animated histogram
-==================
+=========================
+Simple animation examples
+=========================
 
-This example shows how to use a path patch to draw a bunch of
-rectangles for an animated histogram.
-
+This example contains two animations. The first is a random walk plot. The
+second is an image animation.
 """
-import numpy as np
 
+# ---------- FUNCIONAAAAAAAAAAAAAAAA
+
+
+import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
-import matplotlib.patches as patches
-import matplotlib.path as path
 import matplotlib.animation as animation
 
-fig, ax = plt.subplots()
 
-# histogram our data with numpy
-data = np.random.randn(1000)
-n, bins = np.histogram(data, 100)
+def update_line(num, data, line):
+    line.set_data(data[..., :num])
+    return line,
 
-# get the corners of the rectangles for the histogram
-left = np.array(bins[:-1])
-right = np.array(bins[1:])
-bottom = np.zeros(len(left))
-top = bottom + n
-nrects = len(left)
+fig1 = plt.figure()
 
-# here comes the tricky part -- we have to set up the vertex and path
-# codes arrays using moveto, lineto and closepoly
+data_spain_ccaa = pd.read_csv('/Users/alejandrosusillo/Downloads/serie_historica_acumulados.csv', sep=',')
 
-# for each rect: 1 for the MOVETO, 3 for the LINETO, 1 for the
-# CLOSEPOLY; the vert for the closepoly is ignored but we still need
-# it to keep the codes aligned with the vertices
-nverts = nrects*(1 + 3 + 1)
-verts = np.zeros((nverts, 2))
-codes = np.ones(nverts, int) * path.Path.LINETO
-codes[0::5] = path.Path.MOVETO
-codes[4::5] = path.Path.CLOSEPOLY
-verts[0::5, 0] = left
-verts[0::5, 1] = bottom
-verts[1::5, 0] = left
-verts[1::5, 1] = top
-verts[2::5, 0] = right
-verts[2::5, 1] = top
-verts[3::5, 0] = right
-verts[3::5, 1] = bottom
+data_spain_ccaa = data_spain_ccaa.drop(len(data_spain_ccaa)-1)
 
-barpath = path.Path(verts, codes)
-patch = patches.PathPatch(
-    barpath, facecolor='green', edgecolor='yellow', alpha=0.5)
-ax.add_patch(patch)
+data_spain_ccaa['Casos '] = data_spain_ccaa['Casos '].fillna(0)
+data_spain_ccaa['Fallecidos'] = data_spain_ccaa['Fallecidos'].fillna(0)
 
-ax.set_xlim(left[0], right[-1])
-ax.set_ylim(bottom.min(), top.max())
+data = data_spain_ccaa[data_spain_ccaa['CCAA Codigo ISO'].isin(['MD'])][['Casos ','Fallecidos']].to_numpy().transpose().astype(int)
+#data = np.random.rand(2, 25)
 
-
-def animate(i):
-    # simulate new data coming in
-    data = np.random.randn(1000)
-    n, bins = np.histogram(data, 100)
-    top = bottom + n
-    verts[1::5, 1] = top
-    verts[2::5, 1] = top
-    return [patch, ]
-
-ani = animation.FuncAnimation(fig, animate, 100, repeat=False, blit=True)
+l, = plt.plot([], [], 'r-')
+plt.xlim(0, 10000)
+plt.ylim(0, 2000)
+plt.xlabel('Casos')
+plt.title('test')
+line_ani = animation.FuncAnimation(fig1, update_line, 50, fargs=(data, l),
+                                   interval=100, blit=True)
 plt.show()
