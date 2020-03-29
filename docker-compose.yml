@@ -8,13 +8,13 @@ services:
      general:
           build: back-end/general
           volumes:
-               - "/home/controller/factor-DC/kubeconfig/GlobalOpenRepo/back-end/warehouse/:/GlobalOpenRepo/warehouse"
+               - "/home/controller/factor-DC/kubeconfig/GlobalOpenRepo/back-end/warehouse/:/warehouse"
           ports:
                - "3002:3000"
      charts:
           build: back-end/charts
           volumes:
-               - "/home/controller/factor-DC/kubeconfig/GlobalOpenRepo/back-end/warehouse/:/GlobalOpenRepo/warehouse"
+               - "/home/controller/factor-DC/kubeconfig/GlobalOpenRepo/back-end/warehouse/:/warehouse"
           ports:
                - "3004:5000"
      database:

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-
-mongoose.connect('mongodb://database/globalopenrepo', { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true, useUnifiedTopology: true})
+const FileModel = require('./file.db');
+mongoose.connect('mongodb://localhost:27018/database/globalopenrepo', { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true, useUnifiedTopology: true})
 .then(() => {
 	console.log('[MONGODB]: MongoDB Connected');
 })
@@ -9,5 +9,5 @@ mongoose.connect('mongodb://database/globalopenrepo', { useNewUrlParser: true, u
 });
 
 module.exports = {
-
+	FileModel
 };
