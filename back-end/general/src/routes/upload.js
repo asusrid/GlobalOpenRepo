@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const { FileModel } = require('../db');
+
 /* POST video. */
 router.post('/', async (req, res) => {
 	if (!req.files || Object.keys(req.files).length === 0) {
 	    return res.status(400).send('No files were uploaded.');
 	}
 	//console.log(req.files.video);
-
+	console.log(req.body.separator);
 	// The input field
 	let file = req.files.file;
 	file.mv('/warehouse/', function(err) {

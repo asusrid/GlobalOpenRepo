@@ -16,6 +16,7 @@ export class UploadComponent implements OnInit {
   submitted = false;
   progress = 0;
   uri:string;
+  presetSeparators:string[];
 
   @HostListener('change', ['$event.target.files']) emitFiles( event: FileList ) {
     const file = event && event.item(0);
@@ -24,12 +25,14 @@ export class UploadComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient, private host: ElementRef<HTMLInputElement>) {
   	this.uri = 'http://192.168.1.125:3002';
+    this.presetSeparators = ['tab',';',',','space'];
   }
 
   ngOnInit(): void {
   	this.uploadFileForm = this.formBuilder.group({
       email: ['admin@admin', Validators.required],
       password: ['admin', Validators.required],
+      separator: ['', Validators.required],
       file: ['', Validators.required]
     });
   }
@@ -37,18 +40,17 @@ export class UploadComponent implements OnInit {
   get f() { return this.uploadFileForm.controls; }
 
   public saveFile() {
-      this.submitted = true;
+    this.submitted = true;
+    console.log(this.uploadFileForm.get('separator').value)
+    // stop the process here if form is invalid
+    if (this.uploadFileForm.invalid) {
+      return;
+    }
 
-      // stop the process here if form is invalid
-      if (this.uploadFileForm.invalid) {
-        return;
-      }
-
-      if(this.uploadFileForm.get('email').value == 'admin@admin')
+    if(this.uploadFileForm.get('email').value == 'admin@admin') {
       console.log(this.file);
       console.log('SUCCESS!!');
-      console.log(this.uploadFileForm.get('course').value);
-      this.http.post(`${this.uri}/upload`, this.toFormData(this.uploadFileForm.value),
+      this.http.post(`${this.uri}/upload}`, this.toFormData(this.uploadFileForm.value),
           {reportProgress: true, observe: 'events'}
       ).pipe(
           this.uploadProgress(progress => (this.progress = progress)),
@@ -56,10 +58,10 @@ export class UploadComponent implements OnInit {
       ).subscribe((data: any) => {
           this.progress = 0;
           //this.uploadFileForm.reset();
-          // do something with the response
       }, (error: any) => {
           console.log(error);
       });
+    }
   }
 
   public toFormData<T>( formValue: T ) {
@@ -69,7 +71,7 @@ export class UploadComponent implements OnInit {
       const value = formValue[key];
       formData.append(key, value);
     }
-    formData.append('video', this.file, this.file.name);
+    formData.append('file', this.file, this.file.name);
     return formData;
   }
 
