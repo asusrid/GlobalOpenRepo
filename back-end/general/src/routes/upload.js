@@ -13,6 +13,7 @@ router.post('/', async (req, res) => {
 	let file = req.files.file;
 	file.mv('/warehouse/', function(err) {
 	    if (err) return res.status(500).send(err);
+	    console.log(req.files.file);
 	    // ToDo extract headers and save into db
 	    res.send(200).json({'message':'okay'});
 	});
