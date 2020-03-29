@@ -40,3 +40,6 @@ front-end/Thumbs.db
 
 #database
 back-end/database
+
+.DS_STORE
+.idea

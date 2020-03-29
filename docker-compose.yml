@@ -16,7 +16,7 @@ services:
           volumes:
                - "/home/controller/factor-DC/kubeconfig/GlobalOpenRepo/back-end/warehouse/:/GlobalOpenRepo/warehouse"
           ports:
-               - "3004:80"
+               - "3004:5000"
      database:
          image: mongo
          volumes:
