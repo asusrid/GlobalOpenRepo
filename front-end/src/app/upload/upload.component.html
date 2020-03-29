@@ -1,36 +1,60 @@
 <section class="jumbotron text-center">
     <div class="container">
-        <h1 class="jumbotron-heading" id="top">Upload File</h1>
+        <h1 class="jumbotron-heading">Upload File</h1>
         <p class="lead text-muted">Please, upload your file following the next steps.</p>
         <form [formGroup]="uploadFileForm" (ngSubmit)="saveFile()">
             <div class="form-group">
                 <h3>1. Authenticate:</h3><br>
-                <h4 for="email">User</h4><br>
+                <h4 for="email">User</h4>
                 <input id="email" type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
                 <div *ngIf="submitted && f.email.errors" class="text-danger">
                     <div *ngIf="f.email.errors.required">Course is required</div>
                 </div>
             </div>
             <div class="form-group">
-                <h4 for="password">Password</h4><br>
+                <h4 for="password">Password</h4>
                 <input id="password" type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"  />
                 <div *ngIf="submitted && f.password.errors" class="text-danger">
                     <div *ngIf="f.password.errors.required">Password is required</div>
                 </div>
             </div>
+
+            
+
             <div class="form-group">
                 <h3>2. Select File:</h3>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="selectSep">Select a column separator</span>
+                  </div>
+                  <select formControlName="separator" class="custom-select" class="form-control" id="selectSep" [ngClass]="{ 'is-invalid': submitted && f.separator.errors }" >
+                    <option selected >Choose...</option>
+                    <option *ngFor="let sep of presetSeparators" value="{{sep}}">{{sep}}</option>
+                  </select>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="select">or type it here:</label>
+                  </div>
+                  <input type="text" class="form-control" id="customSep" formControlName="separator" [ngClass]="{ 'is-invalid': submitted && f.separator.errors }" >
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="customSep">or custom width here:</label>
+                  </div>
+                  <input type="number" class="form-control" formControlName="separator" [ngClass]="{ 'is-invalid': submitted && f.separator.errors }" >
+                </div>
+                <div *ngIf="submitted && f.separator.errors" class="text-danger">
+                    <div *ngIf="f.separator.errors.required">Separator is required</div>
+                </div>
+            </div>
+            <div class="form-group">
                 <div class="file-drop-area">
-                    <label for="vid" class="file-msg">
+                    <label for="file" class="file-msg">
                         <span>Choose file </span>
                         <div *ngIf="file; else elseBlock">{{file.name}}</div>
                         <ng-template #elseBlock><span >or drag and drop file here.</span></ng-template>
                     </label>
-                    <!--<input formControlName="video" name="video" class="file-input" type="file">  (change)="onSelectFile($event)"-->
-                    <input id="vid" name="video" type='file' accept="video/*" formControlName="video" class="file-input form-control custom-file-input"  [ngClass]="{ 'is-invalid': submitted && f.video.errors }" />
+                    <input id="file" name="file" type='file' formControlName="file" class="file-input form-control custom-file-input"  [ngClass]="{ 'is-invalid': submitted && f.file.errors }" />
 
-                    <div *ngIf="submitted && f.video.errors" class="text-danger">
-                        <div *ngIf="f.video.errors.required">Class video is required</div>
+                    <div *ngIf="submitted && f.file.errors" class="text-danger">
+                        <div *ngIf="f.file.errors.required">File is required</div>
                     </div>
                 </div>
                 <div class="progress" *ngIf="progress > 0">
