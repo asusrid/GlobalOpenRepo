@@ -65,3 +65,34 @@ def linePlot(x, y, fileName, todoNaN):
     plt.xlabel('Date')
     plt.show()
 
+
+def scatterPlot(x, y, fileName, todoNaN):
+
+    #warehouse/serie_historica_acumulados.csv
+    # be aware of the array fileName in case we have more than one file
+    data_spain_ccaa = pd.read_csv('/Users/alejandrosusillo/Downloads/serie_historica_acumulados.csv', sep=',')
+
+    data_spain_ccaa = data_spain_ccaa.drop(len(data_spain_ccaa)-1)
+
+    data_spain_ccaa['Casos '] = data_spain_ccaa['Casos '].fillna(0)
+    data_spain_ccaa['Fallecidos'] = data_spain_ccaa['Fallecidos'].fillna(0)
+
+    fig, ax = plt.subplots()
+
+    ax.yaxis.grid(True)
+    ax.set_title('Casos VS Fallecidos',fontsize=10)
+    ax.set_xlabel('Casos',fontsize=10)
+    ax.set_ylabel('Fallecidos',fontsize=10)
+
+    X = data_spain_ccaa['Casos ']
+    Y = data_spain_ccaa['Fallecidos']
+
+    ax.scatter(X, Y)
+    plt.show()
+
+
+
+
+
+
+
