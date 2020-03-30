@@ -8,10 +8,10 @@ router.post('/', async (req, res) => {
 	    return res.status(400).json({err:'No files were uploaded.'});
 	}
 	//console.log(req.files.video);
-	console.log(req.body.separator);
+	//console.log(req.body.separator);
 	// The input field
 	let dataset = req.files.file;
-	console.log(req.files.file);
+	//console.log(req.files.file);
 	dataset.mv('/warehouse/'+dataset.name, function(err) {
 	    if (err) return res.status(500).json(err);
 	    // console.log(req.files.file);
@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
 	    FileModel.findOne({'md5': dataset.md5}, (err, duplicated) => {
 	    	if(duplicated) {console.log(duplicated); return res.status(200).json(duplicated);}
 		    let buffer = dataset.data.toString('utf8').split('\n');
-		    console.log(buffer.length);
+		    //console.log(buffer.length);
 		    let headersFile = buffer[0].split(req.body.separator);
 		    let dataFile = new Array();
 		    for(let i = 0; i<headersFile.length;i++) {
@@ -45,10 +45,9 @@ router.post('/', async (req, res) => {
 		    for(let i = 0; i<headersFile.length;i++) {
 			    inputFile.set(headersFile[i],dataFile[i]);
 			}
-			console.log(inputFile);
 		    inputFile.save((err,data) => {
 		    	if (err) return res.status(500).json(err);
-		    	console.log(data);
+		    	//console.log(data);
 		    	res.status(200).json(data);
 		    });
 	    });
