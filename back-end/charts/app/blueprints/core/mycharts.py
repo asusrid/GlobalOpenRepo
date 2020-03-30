@@ -1,12 +1,16 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+#plt.rcParams['animation.ffmpeg_path'] = '/Users/alejandrosusillo/opt/anaconda3/lib/python3.7/site-packages/ffmpeg'
 import seaborn as sns
 import numpy as np
 import io
+import matplotlib.animation as animation
+
 
 from pandas.plotting import register_matplotlib_converters
 from sklearn.datasets import load_breast_cancer
 from matplotlib.animation import FuncAnimation
+
 
 
 def makePlot():
@@ -72,7 +76,7 @@ def animatedLineplot():
     ln1, = ax.plot([], [], 'b-')
     ln2, = ax.plot([], [], 'r-')
 
-    data_spain_ccaa = pd.read_csv('/Users/alejandrosusillo/Downloads/serie_historica_acumulados.csv', sep=',')
+    data_spain_ccaa = pd.read_csv('/warehouse/serie_historica_acumulados.csv', sep=',')
     data_spain_ccaa = data_spain_ccaa.drop(len(data_spain_ccaa) - 1)
     data_spain_ccaa['Casos '] = data_spain_ccaa['Casos '].fillna(0)
     data_spain_ccaa['Fallecidos'] = data_spain_ccaa['Fallecidos'].fillna(0)
@@ -93,8 +97,11 @@ def animatedLineplot():
         line2.set_data(data_AN[..., :num])
         return ln1, ln2,
 
+    #Writer = animation.writers['ffmpeg']
+    #writer = Writer(fps=15, metadata=dict(artist='Me'), bitrate=1800)
+
     ani = FuncAnimation(fig, update, 50, fargs=(data_MD, data_AN, ln1, ln2), interval=100, init_func=init, blit=True)
-    plt.show()
+    return ani.to_html5_video()
 
 
 def scatterPlot(x, y, headers, fileName, todoNaN):

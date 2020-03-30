@@ -1,6 +1,8 @@
-FROM python:3.7.1
+FROM continuumio/miniconda3
 
-LABEL Author="Alejandro_Pablo"
+RUN conda create -n env python=3.7
+RUN echo "source activate env" > ~/.bashrc
+ENV PATH /opt/conda/envs/env/bin:$PATH
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV FLASK_APP "app/app.py"
@@ -15,6 +17,8 @@ COPY Pip* /app/
 RUN pip install --upgrade pip && \
     pip install pipenv && \
     pipenv install --dev --system --deploy --ignore-pipfile
+
+RUN conda install ffmpeg
 
 ADD . /app
 
