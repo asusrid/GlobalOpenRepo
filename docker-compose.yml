@@ -4,22 +4,26 @@ services:
           hostname: 192.168.1.125
           build: front-end
           ports:
-               - "4202:4200"
+              - "4202:4200"
      general:
           build: back-end/general
           volumes:
-               - "/home/controller/factor-DC/kubeconfig/GlobalOpenRepo/back-end/warehouse/:/warehouse"
+              - "/home/controller/factor-DC/kubeconfig/GlobalOpenRepo/back-end/warehouse/:/warehouse"
           ports:
                - "3002:3000"
+          links:
+              - database
      charts:
           build: back-end/charts
           volumes:
-               - "/home/controller/factor-DC/kubeconfig/GlobalOpenRepo/back-end/warehouse/:/warehouse"
+              - "/home/controller/factor-DC/kubeconfig/GlobalOpenRepo/back-end/warehouse/:/warehouse"
           ports:
-               - "3004:5000"
+              - "3004:5000"
+          links:
+              - database
      database:
          image: mongo
          volumes:
-               - "/home/controller/factor-DC/kubeconfig/GlobalOpenRepo/back-end/database/:/data/db"
+              - "/home/controller/factor-DC/kubeconfig/GlobalOpenRepo/back-end/database/:/data/db"
          ports:
-               - "27018:27017"
+              - "27018:27017"

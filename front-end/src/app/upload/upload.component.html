@@ -28,7 +28,7 @@
                     <span class="input-group-text" id="selectSep">Select a column separator</span>
                   </div>
                   <select formControlName="separator" class="custom-select" class="form-control" id="selectSep" [ngClass]="{ 'is-invalid': submitted && f.separator.errors }" >
-                    <option selected >Choose...</option>
+                    <option value='' selected>Choose...</option>
                     <option *ngFor="let sep of presetSeparators" value="{{sep}}">{{sep}}</option>
                   </select>
                   <div class="input-group-append">

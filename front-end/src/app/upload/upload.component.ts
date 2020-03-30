@@ -50,7 +50,7 @@ export class UploadComponent implements OnInit {
     if(this.uploadFileForm.get('email').value == 'admin@admin') {
       console.log(this.file);
       console.log('SUCCESS!!');
-      this.http.post(`${this.uri}/upload}`, this.toFormData(this.uploadFileForm.value),
+      this.http.post(`${this.uri}/upload`, this.toFormData(this.uploadFileForm.value),
           {reportProgress: true, observe: 'events'}
       ).pipe(
           this.uploadProgress(progress => (this.progress = progress)),

@@ -5,8 +5,6 @@ const routes = require('./routes');
 const fileUpload = require('express-fileupload');
 const helmet = require('helmet');
 
-// add routes
-
 const app = express();
 const port = 3000;
 
@@ -27,6 +25,9 @@ app.use(function(req, res, next) {
 });
 
 app.use(fileUpload());
+
+// add routes
+app.use('/',routes);
 
 // Create an HTTP server to run our application
 var server = app.listen(port, () => {
