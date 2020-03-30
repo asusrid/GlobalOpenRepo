@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-visualization',
@@ -8,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 
 export class VisualizationComponent implements OnInit {
 
-  constructor() { }
+	lineplotForm;
 
-  ngOnInit(): void {
-  }
+	constructor(private formBuilder: FormBuilder) { 
+
+		this.lineplotForm = this.formBuilder.group({
+			x: '',
+			y: ''
+		});
+
+	}
+
+	ngOnInit(): void {
+	}
+
+	public submitLineplot(){
+		console.log(this.lineplotForm.get('x').value);
+		console.log(this.lineplotForm.get('y').value);
+	}
 
 }

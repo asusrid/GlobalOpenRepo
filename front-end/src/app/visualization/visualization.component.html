@@ -1,4 +1,30 @@
-<p>visualization works!</p>
 
-<img src="http://192.168.1.125:3004/" />
 
+
+
+<div style="margin: 3% 3% 3% 3%">
+	<h3>Line Plot</h3>
+	<hr>
+
+	<section class="jumbotron">
+		<div class="container">
+			<div class="row">
+				<div class="col-6">
+					<img class="image_example" src="http://192.168.1.125:3004/" />
+				</div>
+				<div class="col-6"> 
+					<form [formGroup]="lineplotForm" (ngSubmit)="submitLineplot()">
+					    <div class="form-group">
+					        <h4 for="x">Coordinates X</h4><br>
+					        <input id="x" type="text" formControlName="x" class="form-control" />
+					        <h4 for="y">Coordinates Y</h4><br>
+					        <input id="y" type="text" formControlName="y" class="form-control" />
+					        <br>
+					        <button class="button" type="submit">Compute</button>
+					    </div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
