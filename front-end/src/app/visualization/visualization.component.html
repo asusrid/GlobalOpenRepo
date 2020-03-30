@@ -1,7 +1,4 @@
 
-
-
-
 <div style="margin: 3% 3% 3% 3%">
 	<h3>Line Plot</h3>
 	<hr>
@@ -10,7 +7,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-6">
-					<img class="image_example" src="http://192.168.1.125:3004/" />
+					<img class="example_plot" src="http://192.168.1.125:3004/example" />
 				</div>
 				<div class="col-6"> 
 					<form [formGroup]="lineplotForm" (ngSubmit)="submitLineplot()">
@@ -25,6 +22,13 @@
 					</form>
 				</div>
 			</div>
+
+			<div class="container">
+				<div class="col-12">
+					<iframe ng-include src="http://192.168.1.125:3004/animatedlineplot" style="border: none; width: inherit; height: 500px" autoplay></iframe>
+				</div>
+			</div>
+
 		</div>
 	</section>
 </div>

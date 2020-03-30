@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
+import matplotlib.animation as animation
 
 fig, ax = plt.subplots()
 xdata, ydata, xmydata, ymydata = [], [], [], []
@@ -31,5 +32,11 @@ def update(num, data_MD, data_AN, line1, line2):
     line2.set_data(data_AN[..., :num])
     return ln1,ln2,
 
-ani = FuncAnimation(fig, update , 50, fargs=(data_MD, data_AN, ln1, ln2), interval=100, init_func=init, blit=True)
+#Writer = animation.writers['ffmpeg']
+#writer = Writer(fps=15, metadata=dict(artist='Me'), bitrate=1800)
+
+ani = FuncAnimation(fig, update, 50, fargs=(data_MD, data_AN, ln1, ln2), interval=100, init_func=init, blit=True)
+test = ani.to_html5_video()
+test2 = print(ani.to_html5_video())
+#test = ani.save('lines.mp4', writer=writer)
 plt.show()
